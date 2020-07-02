@@ -47,7 +47,7 @@ func generate(hex string) <-chan string {
 	newHex := hex
 
 	go func() {
-		for i := 0; i < 20000000000; i++ {
+		for i := 0; i < 20000000; i++ {
 			newHex = generateNewHEX(newHex)
 			out <- newHex
 		}
