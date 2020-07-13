@@ -1,4 +1,4 @@
 host: "btc.smsys.me:995"
-hex: "ea45f50532ff56e79b6c2e9f593943274d078f2b9cf25efee0ea2e855366dd0b"
-threads: 200000
+hex: "e55e78f316d314f8afa6cb1fd321213a4b54888dfd3994aecb5f414510000eac"
+threads: 100000
 output: "output.txt"

@@ -22,8 +22,7 @@ type wallet struct {
 	balanceUnconfirmedU uint64
 	balanceConfirmedC   uint64
 	balanceUnconfirmedC uint64
-	// client              *electrum.Client
-	tx *[]electrum.Tx
+	tx                  *[]electrum.Tx
 }
 
 func newWallet(HEX string) *wallet {
@@ -36,7 +35,6 @@ func newWallet(HEX string) *wallet {
 }
 
 func (w *wallet) checkBalance(client *electrum.Client, out string) {
-	// w.getTransactions(client)
 	w.balanceCompressed(client)
 	w.balanceUncompressed(client)
 	if w.balanceConfirmedU != 0 || w.balanceUnconfirmedU != 0 || w.balanceConfirmedC != 0 || w.balanceUnconfirmedC != 0 {
@@ -71,7 +69,7 @@ func (w *wallet) getTransactions(client *electrum.Client) {
 }
 
 func (w *wallet) String() string {
-	return fmt.Sprintf("HEX: %s\nWIF: %s\nAddress uncompressed: %s\nAddress compressed: %s\nBalance confirmed uncompressed: %d\nBalance unconfirmed uncompressed: %d\nBalance confirmed compress: %d\nBalance unconfirmed compress: %d\nTx: %v\n",
-		w.HEX, w.WIF, w.addressUncompressed, w.addressCompressed, w.balanceConfirmedU, w.balanceUnconfirmedU, w.balanceConfirmedC, w.balanceUnconfirmedC, w.tx,
+	return fmt.Sprintf("HEX: %s\nWIF: %s\nAddress uncompressed: %s\nAddress compressed: %s\nBalance confirmed uncompressed: %d\nBalance unconfirmed uncompressed: %d\nBalance confirmed compress: %d\nBalance unconfirmed compress: %d\n",
+		w.HEX, w.WIF, w.addressUncompressed, w.addressCompressed, w.balanceConfirmedU, w.balanceUnconfirmedU, w.balanceConfirmedC, w.balanceUnconfirmedC,
 	)
 }
