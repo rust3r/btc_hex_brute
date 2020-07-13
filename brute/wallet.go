@@ -36,10 +36,10 @@ func newWallet(HEX string) *wallet {
 }
 
 func (w *wallet) checkBalance(client *electrum.Client, out string) {
-	w.getTransactions(client)
+	// w.getTransactions(client)
 	w.balanceCompressed(client)
 	w.balanceUncompressed(client)
-	if w.balanceConfirmedU != 0 || w.balanceUnconfirmedU != 0 || w.balanceConfirmedC != 0 || w.balanceUnconfirmedC != 0 || len(*w.tx) != 0 {
+	if w.balanceConfirmedU != 0 || w.balanceUnconfirmedU != 0 || w.balanceConfirmedC != 0 || w.balanceUnconfirmedC != 0 {
 		saveData(w.String(), out)
 	}
 }
