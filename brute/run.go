@@ -28,7 +28,7 @@ func Run(config *Config) {
 	defer client.Close()
 
 	// For check server
-	// balance, err := client.AddressBalance("3Qj8iqqPxVE14BPWRefGGLJQgaW4xDWW2C")
+	// balance, err := client.AddressBalance("3E1XrB26ySf2P9LDUapSCNPC9hoNqTNzNB")
 	// if err != nil {
 	// 	log.Fatal(err)
 	// }
