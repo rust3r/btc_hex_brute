@@ -1,7 +1,7 @@
 package main
 
 import (
-	"btc_hex-brute/brute"
+	"btc_hex_brute/brute"
 )
 
 func main() {
