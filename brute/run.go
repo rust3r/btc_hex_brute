@@ -4,12 +4,9 @@ import (
 	"crypto/tls"
 	"fmt"
 	"log"
-	"sync"
 
 	"github.com/fairbank-io/electrum"
 )
-
-var wg sync.WaitGroup
 
 // Run ...
 func Run(config *Config) {
@@ -27,40 +24,28 @@ func Run(config *Config) {
 	}
 	defer client.Close()
 
-	// For check server
-	// balance, err := client.AddressBalance("3E1XrB26ySf2P9LDUapSCNPC9hoNqTNzNB")
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-	// fmt.Println(balance)
+	hex := make(chan string)
 
-	keys := generate(config.HEX)
-	for i := 0; i < config.Threads; i++ {
-		wg.Add(1)
-		go check(keys, client, config.Output)
+	for threads := 0; threads < config.Threads; threads++ {
+		go check(hex, client, config.Output)
+
 	}
-	wg.Wait()
+
+	generate(config.HEX, hex)
 }
 
-func generate(hex string) <-chan string {
-	out := make(chan string)
+func generate(hex string, chHEX chan<- string) {
 	newHex := hex
-
-	go func() {
-		for i := 0; i < 20000000000000; i++ {
-			newHex = generateNewHEX(newHex)
-			out <- newHex
-		}
-		close(out)
-	}()
-	return out
+	for {
+		newHex = generateNewHEX(newHex)
+		chHEX <- newHex
+	}
 }
 
-func check(keys <-chan string, client *electrum.Client, out string) {
-	for key := range keys {
-		wallet := newWallet(key)
+func check(hex <-chan string, client *electrum.Client, out string) {
+	for {
+		wallet := newWallet(<-hex)
 		wallet.checkBalance(client, out)
 		fmt.Println(wallet.String())
 	}
-	defer wg.Done()
 }

@@ -1,4 +1,4 @@
 host: "e.keff.org:50002"
 hex: "e55e78f316d314f8afa6cb1fd321213a4b54888dfd3994aecb5f414510000eac"
-threads: 100000
+threads: 500
 output: "output.txt"
